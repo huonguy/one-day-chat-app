@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="page-title">
+    <div class="row gutters">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <h5 class="title">1 day chat App</h5>
+            <p>All messages will be deleted at every 00:00 UTC</p>
+        </div>
+    </div>
+  </div>
+  <div class="content-wrapper">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card m-0">
+                <div class="row no-gutters">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
+                        <div class="users-container">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">1. Choose your user</label>
+                                <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="selectedUser">
+                                    <option value="Joyse" selected>Joyse</option>
+                                    <option value="Sam">Sam</option>
+                                    <option value="Russell">Russell</option>
+                                </select>
+                            </div>
+                            <p>2. Choose your Channel</p>
+                            <ul class="users">
+                                <li *ngFor="let channel of channelList; let i = index;" [ngClass]="i === selectedChannel ? 'channel active-user' : 'channel'" (click)="onChannelChanged(i)">
+                                <p class="name-time">
+                                  <span class="name">{{channel}}</span>
+                                </p>
+                              </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9">
+                        <div class="selected-user">
+                            <span>{{channelList[selectedChannel]}}</span>
+                        </div>
+                        <app-view-conversation [selectedUser]="selectedUser" [selectedChannel]="selectedChannel + 1"></app-view-conversation>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="chat-container">
+  <ul class="chat-box chatContainerScroll">
+    <li class="chat-left">
+        <button type="button" class="btn btn-info" (click) = onReadMoreClick(true)>
+            Read More <i class="fa fa-arrow-up"></i>
+        </button>
+    </li>
+    <ng-container *ngFor="let message of (messages$ | async)">
+      <ng-container *ngIf="message.userId !== selectedUser" [ngTemplateOutlet]="showChatLeft" [ngTemplateOutletContext]="{ message: message }"></ng-container>
+      <ng-container *ngIf="message.userId === selectedUser" [ngTemplateOutlet]="showChatRight" [ngTemplateOutletContext]="{ message: message }"></ng-container>
+    </ng-container>
+    <li class="left">
+        <button type="button" class="btn btn-info" (click) = onReadMoreClick(false)>
+            Read More <i class="fa fa-arrow-down"></i>
+        </button>
+    </li>
+  </ul>
+  <div class="form-group mt-3 mb-0">
+        <textarea class="form-control" rows="3" placeholder="Type your message here..." [(ngModel)]="newMessage"
+        (keyup.enter)="sendMessage()"></textarea>
+    <button type="button" class="btn btn-info" (click)="sendMessage()">
+    Send Message <i class="fa fa-send"></i>
+    </button>
+  </div>
+</div>
+
+<ng-template #showChatLeft let-message="message">
+  <li class="chat-left">
+    <div class="chat-avatar">
+        <img *ngIf="message.userId == 'Sam'" [src]="AVATAR_URL_SAM" alt="User">
+        <img *ngIf="message.userId == 'Joyse'" [src]="AVATAR_URL_JOYSE" alt="User">
+        <img *ngIf="message.userId == 'Russell'" [src]="AVATAR_URL_RUSSELL" alt="User">
+        <div class="chat-name">{{message.userId}}</div>
+    </div>
+    <div class="chat-text">
+      {{message.text}}
+    </div>
+    <div class="chat-hour">{{message.datetime| date: 'shortTime'}}</div>
+  </li>
+</ng-template>
+
+<ng-template #showChatRight let-message="message">
+  <li class="chat-right">
+    <div class="chat-hour">{{message.datetime| date: 'shortTime'}}<span class="fa fa-check-circle"></span> <span class="chat-message">Sent</span></div>
+    <div class="chat-text">
+      {{message.text}}
+    </div>
+    <div class="chat-avatar">
+      <img *ngIf="message.userId == 'Sam'" [src]="AVATAR_URL_SAM" alt="User">
+      <img *ngIf="message.userId == 'Joyse'" [src]="AVATAR_URL_JOYSE" alt="User">
+      <img *ngIf="message.userId == 'Russell'" [src]="AVATAR_URL_RUSSELL" alt="User">
+      <div class="chat-name">{{message.userId}}</div>
+    </div>
+  </li>
+</ng-template>
