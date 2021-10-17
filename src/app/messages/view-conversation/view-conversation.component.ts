@@ -88,7 +88,6 @@ export class ViewConversationComponent implements OnInit, OnChanges {
 
     try{
       if(await this.processApisService.PostMessage(String(this.selectedChannel), this.newMessage, this.selectedUser).toPromise()){
-        this.onReadMoreClick(false);
 
         //build real-time chat with socket.io
         this.chatService.SendMessage(String(this.selectedChannel), this.newMessage, this.selectedUser);
